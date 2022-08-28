@@ -1,12 +1,23 @@
 import express, { response, request } from 'express';
 import cors  from  'cors';
 
-const  server =   express();
+const  server = express();
+server.use(express.json());
 
 server.use(cors())
 
-const teste = [{nome: 'teste'}]
+const tweets = []
 
-server.get('/teste', (request, response) => {response.send(teste)})
+server.post("/tweets", (request, response) => {
 
-server.listen(5000)
+const tweet = request.body
+
+tweets.push(tweet)
+
+response.send('sucesso')
+
+})
+
+server.get("/tweets", (request, response) => response.send(tweets))
+
+server.listen(5000, () => console.log("Escutando na porta 5000")) 
