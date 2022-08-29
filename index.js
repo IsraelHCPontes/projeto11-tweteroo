@@ -10,11 +10,12 @@ const usuarios = []
 const tweets = []
 
 
+
 server.post("/sign-up", (request,response) =>{
 
-    const usuario = request.body
-    usuarios.push(usuario)
-    response.send('Ok')
+        const usuario = request.body
+        usuarios.push(usuario)
+        response.send('Ok')
 
 })
 
@@ -29,9 +30,12 @@ server.post("/tweets", (request, response) => {
     })
     
 
-server.get("/tweets", (request, response) =>{
+server.get("/tweets", (request, response) => {
+      
+      const newTweests = tweets.slice(-10).reverse()
 
- response.send(tweets)
+      response.send(newTweests.reverse());
+      
 
 })
 
