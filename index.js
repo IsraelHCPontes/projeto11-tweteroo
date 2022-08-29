@@ -6,18 +6,33 @@ server.use(express.json());
 
 server.use(cors())
 
+const usuarios = []
 const tweets = []
 
-server.post("/tweets", (request, response) => {
 
-const tweet = request.body
+server.post("/sign-up", (request,response) =>{
 
-tweets.push(tweet)
-
-response.send('sucesso')
+    const usuario = request.body
+    usuarios.push(usuario)
+    response.send('Ok')
 
 })
 
-server.get("/tweets", (request, response) => response.send(tweets))
+server.post("/tweets", (request, response) => {
+
+       const tweet = request.body  
+       const usuario = usuarios.filter(user => user.username == tweet.username);
+       tweet.avatar = usuario[0].avatar;
+       tweets.push(tweet)
+       response.send(tweets)
+
+    })
+    
+
+server.get("/tweets", (request, response) =>{
+
+ response.send(tweets)
+
+})
 
 server.listen(5000, () => console.log("Escutando na porta 5000")) 
